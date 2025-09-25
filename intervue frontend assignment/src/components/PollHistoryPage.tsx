@@ -3,7 +3,6 @@ import QuestionResult from "../components/QuestionResults";
 import { getPollHistory } from "../api/roomApi";
 import { useAppSelector } from "../store/hooks";
 import PopupButton from "./PopupButton";
-import { useRoomState } from "../hooks/useRoomAction";
 
 
 export default function PollHistoryPage() {
