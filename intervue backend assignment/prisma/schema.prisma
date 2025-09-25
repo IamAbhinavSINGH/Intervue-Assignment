@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Room{
+  id           String         @id @default(uuid())
+  title        String?
+  code         String          @unique
+  teacherId    String?         @unique
+  teacher      Teacher?        @relation(fields: [teacherId], references: [id])
+  questions    Question[]
+  createdAt    DateTime       @default(now())
+}
+
+model Teacher{
+  id          String          @id @default(uuid())
+  name        String?
+  token       String?
+  createdAt   DateTime        @default(now())
+  roomId      String?
+  Room        Room?
+}
+
+model Question{
+  id                String          @id @default(uuid())
+  text              String
+  roomId            String
+  Room              Room            @relation(fields: [roomId] , references: [id])
+  timeLimit         Int             @default(60)
+  createdAt         DateTime        @default(now())
+  startedAt         DateTime?       
+  endAt             DateTime?       
+  status            QuestionSatus   @default(PENDING)
+  options           Option[]
+}
+
+model Option{
+  id                String          @id @default(uuid())
+  text              String
+  questionId        String
+  Question          Question        @relation(fields: [questionId] , references: [id])
+  createdAt         DateTime        @default(now())
+  responses         Response[]
+  isCorrect         Boolean         @default(false)
+}
+
+model Response{
+  id               String           @id @default(uuid())
+  studentName      String?
+  optionId         String
+  option           Option           @relation(fields: [optionId] , references: [id])
+  createdAt        DateTime         @default(now())
+}
+
+enum QuestionSatus{
+  PENDING
+  ACTIVE
+  ENDED
+}

@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --brand-purple: #7765DA;
+  --brand-blue: #5767D0;
+  --brand-deep: #4F0DCE;
+  --bg-muted: #F2F2F2;
+  --dark-gray: #373737;
+  --muted-gray: #6E6E6E;
+  
+}
+
+html, body, #root {
+  height: 100%;
+}
+body {
+  font-family: 'Sora', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #ffffff;
+  color: var(--dark-gray);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--brand-purple) 0%, var(--brand-deep) 100%);
+  box-shadow: 0 6px 18px rgba(79,13,206,0.12);
+}
+
+.bg-gray-gradient {
+  background: linear-gradient(90deg, #343434 0%, #6E6E6E 100%);
+}
+
+.text-muted { color: var(--muted-gray); }
+.card-border { border: 1px solid #EAEAEA; }
