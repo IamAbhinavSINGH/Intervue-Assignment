@@ -25,7 +25,7 @@ class SocketManager {
 
   private ensureSocket() {
     if (!this.socket) {
-      this.socket = io("http://localhost:3000", {
+      this.socket = io("https://intervue-assignment-ib0s.onrender.com", {
         // transports: ['websocket'],
         reconnection : true
       });
