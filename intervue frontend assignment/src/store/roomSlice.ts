@@ -6,7 +6,7 @@ import socketManager from '../sockets/socketManager';
 
 export const createRoom = createAsyncThunk(
   'room/createRoom',
-  async (payload: { teacherName?: string; title?: string }, thunkAPI) => {
+  async (payload: { teacherName?: string; title?: string }) => {
     const res: TeacherCreateResponse = await api.createRoom(payload.teacherName, payload.title);
     storage.setTeacherToken(res.teacherToken);
     socketManager.connectAsTeacher(res.roomCode, res.teacherId, res.teacherToken);
@@ -27,7 +27,7 @@ export const createRoom = createAsyncThunk(
 
 export const joinRoomAsStudent = createAsyncThunk(
   'room/joinStudent',
-  async (payload: { code: string; name?: string }, thunkAPI) => {
+  async (payload: { code: string; name?: string }) => {
     const res : JoinRoomResponseStudent = await api.joinRoomAsStudent(payload.code, payload.name);
     socketManager.connectAsStudent(payload.code, payload.name);
     const meta = {
@@ -44,7 +44,7 @@ export const joinRoomAsStudent = createAsyncThunk(
 
 export const createQuestion = createAsyncThunk(
   'room/createQuestion',
-  async (payload: { code: string; question: string; options: { text: string; isCorrect?: boolean }[]; timeLimit?: number }, thunkAPI) => {
+  async (payload: { code: string; question: string; options: { text: string; isCorrect?: boolean }[]; timeLimit?: number }) => {
     const token = storage.getTeacherToken();
     if (!token) throw new Error('Teacher token missing');
     const res = await api.createQuestion(payload.code, { question: payload.question, options: payload.options, timeLimit: payload.timeLimit }, token);
@@ -156,7 +156,7 @@ const slice = createSlice({
       })
 
       .addCase(createQuestion.pending, (s) => { s.status = 'loading'; })
-      .addCase(createQuestion.fulfilled, (s, action) => {
+      .addCase(createQuestion.fulfilled, (s) => {
         s.status = 'idle';
         // We could push the newly created question into room.questions if shape matches
       })

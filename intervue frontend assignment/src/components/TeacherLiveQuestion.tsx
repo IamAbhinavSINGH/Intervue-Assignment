@@ -3,8 +3,6 @@ import { useDispatch } from "react-redux";
 import { roomActions } from "../store/roomSlice";
 import socketManager from "../sockets/socketManager";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import ParticipantsPopup from "./PariticipantPopup";
 import PopupButton from "./PopupButton";
 
 export default function TeacherLiveQuestion() {

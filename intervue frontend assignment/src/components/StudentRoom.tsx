@@ -143,7 +143,6 @@ export default function StudentRoom() {
           <div className="p-6">
             <div className="space-y-4">
               {opts.map((opt, idx) => {
-                const p = 0; 
                 const isSelected = selectedOption === opt.id;
                 return (
                   <div

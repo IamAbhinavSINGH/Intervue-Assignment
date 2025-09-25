@@ -5,7 +5,7 @@ import type { AppDispatch } from '../store';
 import { roomActions } from '../store/roomSlice';
 
 // const SOCKET_PATH = import.meta.env.VITE_SOCKET_PATH ?? '';
-const URL = import.meta.env.VITE_API_URL ?? '';
+// const URL = import.meta.env.VITE_API_URL ?? '';
 
 class SocketManager {
   private socket: Socket | null = null;
@@ -63,7 +63,7 @@ class SocketManager {
         this.dispatch(roomActions.setQuestionCounts({ counts, percentages }));
       });
 
-      this.socket.on('question:ended', (payload: { questionId: string }) => {
+      this.socket.on('question:ended', () => {
         if (!this.dispatch) return;
         this.dispatch(roomActions.clearActiveQuestion());
       });

@@ -22,17 +22,13 @@ export default function StudentResult({
   questionText,
   options,
   percentages,
-  selectedOptionId,
   index,
-  showContinue = false,
-  onContinue,
 }: Props) {
   const resultOptions = options.map((o) => ({
     id: o.id,
     text: o.text,
     percent: percentages?.[o.id] ?? 0,
   }));
-  const selected = options.find((o) => o.id === selectedOptionId);
   const activeQuestion = useAppSelector((s) => s.room.activeQuestion);
   const [remainingSeconds , setRemainingSeconds] = useState<number>(0);
 
