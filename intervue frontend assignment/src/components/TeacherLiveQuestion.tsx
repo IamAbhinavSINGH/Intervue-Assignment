@@ -14,7 +14,7 @@ export default function TeacherLiveQuestion() {
 
   if (!activeQuestion) return null;
 
-  const opts = activeQuestion.options ?? [];
+  const options = activeQuestion.options ?? [];
 
   const getPercent = (optionId: string) => {
     const p = percentages?.[optionId];
@@ -54,49 +54,36 @@ export default function TeacherLiveQuestion() {
                 <div className="font-medium">{activeQuestion.text}</div>
             </div>
 
-            <div className="p-6">
-                <div className="space-y-4">
-                {opts.map((opt, idx) => {
-                    const p = getPercent(opt.id);
-                    return (
-                    <div key={opt.id} className="flex items-center gap-4">
-                        <div
-                        className="flex-none w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
-                        style={{ background: "linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)" }}
-                        >
-                        {idx + 1}
+            <div className="p-6 space-y-3">
+              {options.map((opt, idx) => (
+                <div key={opt.id} className="relative">
+                  <div className="w-full h-12 bg-[#F6F6F6] rounded-md border border-[#8D8D8D30] relative overflow-hidden">
+                    <div
+                      className="h-full transition-all duration-500 ease-out"
+                      style={{
+                        width: `${getPercent(opt.id)}%`,
+                        background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+                      }}
+                    />
+
+                    <div className="absolute inset-0 flex items-center justify-between px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                          <span className="font-semibold text-sm" style={{ color: "#6366f1" }}>
+                            {idx + 1}
+                          </span>
                         </div>
 
-                        <div className="flex-1">
-                        <div className="relative">
-                            <div className="w-full h-12 bg-[#EFEFEF] rounded-md border" style={{ borderColor: "rgba(79,13,206,0.12)" }}>
-                            <div
-                                className="h-12 rounded-md"
-                                style={{
-                                    width: `${p}%`,
-                                    background: "linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)",
-                                    transition: "width 300ms ease",
-                                }}
-                            />
-                            <div className="absolute inset-0 flex items-center px-6 pointer-events-none">
-                                <span className="text-white font-medium" style={{ mixBlendMode: p > 30 ? 'color' : 'darken', color: p > 30 ? 'white' : '#111827' }}>
-                                {opt.text}
-                                </span>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
+                        <span className={`font-medium text-sm ${getPercent(opt.id) > 20 ? 'text-white' : 'text-black'}`}>{opt.text}</span>
+                      </div>
 
-                        <div className="flex-none ml-4">
-                        <div className="px-4 py-2 bg-white rounded-md border" style={{ minWidth: 56, textAlign: "center", borderColor: "rgba(79,13,206,0.12)" }}>
-                            <span className="font-semibold">{p}%</span>
-                        </div>
-                        </div>
+                      <span className="font-semibold text-sm text-black bg-transparent px-2 py-1 rounded">{getPercent(opt.id)}%</span>
                     </div>
-                    );
-                })}
+                  </div>
                 </div>
+              ))}
             </div>
+            
             </div>
 
             <div className="mt-8 flex justify-end">

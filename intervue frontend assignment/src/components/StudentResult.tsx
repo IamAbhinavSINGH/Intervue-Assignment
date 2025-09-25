@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../store/hooks";
 import QuestionResult from "./QuestionResults";
 import PopupButton from "./PopupButton";
+import TimerSVG from "../assets/Timer";
 
 interface Opt {
   id: string;
@@ -61,15 +62,14 @@ export default function StudentResult({
     <div className="min-h-screen flex items-start justify-center bg-white py-12 px-4 relative">
       <div className="w-full absolute top-1/4 right-1/4 max-w-2xl mx-auto ">
 
-         <div className="flex items-center gap-4 mb-6">
+         <div className="flex items-center gap-4 mb-4">
           <h3 className="text-2xl font-semibold">{'Question'}</h3>
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <svg width="18" height="18" viewBox="0 0 24 24" className="inline-block">
-              <path d="M12 7v6l4 2" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
+            <TimerSVG />
             <span className="font-medium text-red-600">{formatTime(remainingSeconds)}</span>
           </div>
         </div>
+        
         <QuestionResult showQuestion={false} questionText={questionText} options={resultOptions} index={index} />
 
         <div className="text-center mt-6">

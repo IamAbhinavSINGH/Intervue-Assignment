@@ -41,6 +41,9 @@ export default async function registerPollHandlers(io : Server , socket : Socket
         socket.join(code);
         console.log(`Student ${name} joined room ${code}`);
 
+        const studentsArray = Array.from(room.students.values());
+        io.to(code).emit('total:students', { students: studentsArray });
+
         if(room.activeQuestion){
             socket.emit("question:started" , {
                 question : room.activeQuestion,
@@ -136,6 +139,7 @@ export default async function registerPollHandlers(io : Server , socket : Socket
 
         if (room.students.has(studentSocketId)) {
             io.to(studentSocketId).emit("removed");
+            io.to(code).emit('student:kicked' , () => { studentSocketId });
             io.sockets.sockets.get(studentSocketId)?.disconnect();
             room.students.delete(studentSocketId);
         }

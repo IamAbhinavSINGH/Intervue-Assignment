@@ -48,7 +48,6 @@ export const getPollHistory = async (req: Request, res: Response) => {
   try {
     const { code } = req.params;
     const room = await db.room.findUnique({ where: { code } });
-    console.log("history api called : " , code);
     if (!room) return res.status(404).json({ error: 'Room not found' });
 
     const questions = await db.question.findMany({
@@ -60,15 +59,15 @@ export const getPollHistory = async (req: Request, res: Response) => {
     const result = [];
 
     for (const q of questions) {
-      const total = await db.response.count({
-        where: { id : q.id },
-      });
+      let total = 0;
+      q.options.map(async (opt : any) => {
+        total += await db.response.count({ where : { optionId : opt.id } });
+      })
 
-      // for each option compute count and percent
       const optionsWithPercents = await Promise.all(
         q.options.map(async (opt: any) => {
           const count = await db.response.count({
-            where: { id: q.id, optionId: opt.id },
+            where: { optionId: opt.id },
           });
           const percent = total === 0 ? 0 : Math.round((count / total) * 100);
           return {

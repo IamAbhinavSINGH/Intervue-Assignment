@@ -118,6 +118,7 @@ const slice = createSlice({
       state.questionPercentages = {};
     },
     addStudent(state, action: PayloadAction<{ socketId: string; name?: string; clientId?: string }>) {
+      console.log("add student called : " , action.payload.socketId);
       state.students.push(action.payload);
     },
     removeStudent(state, action: PayloadAction<{ socketId: string }>) {

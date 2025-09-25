@@ -7,6 +7,13 @@ import { roomActions } from '../store/roomSlice';
 // const SOCKET_PATH = import.meta.env.VITE_SOCKET_PATH ?? '';
 // const URL = import.meta.env.VITE_API_URL ?? '';
 
+interface Student{
+    socketId : string;
+    name : string;
+    clientId?: string;
+    id? : string;
+}
+
 class SocketManager {
   private socket: Socket | null = null;
   private dispatch: AppDispatch | null = null;
@@ -18,7 +25,7 @@ class SocketManager {
 
   private ensureSocket() {
     if (!this.socket) {
-      this.socket = io("https://intervue-assignment-ib0s.onrender.com", {
+      this.socket = io("http://localhost:3000", {
         // transports: ['websocket'],
         reconnection : true
       });
@@ -63,10 +70,39 @@ class SocketManager {
         this.dispatch(roomActions.setQuestionCounts({ counts, percentages }));
       });
 
+      this.socket.on('total:students' , (payload : { students : string }) => {
+        if (!this.dispatch) return;
+        let studentsArr: Student[] = [];
+        if (typeof payload.students === 'string') {
+          try {
+            studentsArr = JSON.parse(payload.students);
+          } catch {
+            studentsArr = [];
+          }
+        } else if (Array.isArray(payload.students)) {
+          studentsArr = payload.students;
+        }
+
+        studentsArr.forEach((stu) => {
+          if(this.dispatch === null) return;
+          this.dispatch(roomActions.addStudent({
+            socketId: stu.socketId,
+            name: stu.name,
+            clientId: stu.clientId,
+          }));
+        });
+      })
+
       this.socket.on('question:ended', () => {
         if (!this.dispatch) return;
         this.dispatch(roomActions.clearActiveQuestion());
       });
+
+      this.socket.on('student:kicked' , (payload : { socketId : string }) => {
+        if(!this.dispatch) return;
+        this.dispatch(roomActions.removeStudent({ socketId : payload.socketId }));
+        this.dispatch(roomActions.kickedOut());
+      })
 
       this.socket.on('removed', () => {
         if (!this.dispatch) return;

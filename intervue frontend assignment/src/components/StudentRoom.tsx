@@ -5,6 +5,7 @@ import StarSVG from "../assets/Star";
 import StudentResult from "./StudentResult";
 import StudentKicked from "./StudentKicked";
 import PopupButton from "./PopupButton";
+import TimerSVG from "../assets/Timer";
 
 function formatTime(seconds: number) {
   const s = Math.max(0, Math.floor(seconds));
@@ -88,14 +89,13 @@ export default function StudentRoom() {
             Intervue Poll
           </div>
 
-        <div className="mb-8">
+        <div className="mb-8 mt-6">
           <svg width="72" height="72" viewBox="0 0 24 24" fill="none" className="animate-spin">
             <path d="M12 2a10 10 0 1 0 10 10" stroke="#6C3AEF" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </div>
 
         <h3 className="text-2xl font-semibold mb-2">Wait for the teacher to ask questions..</h3>
-        <p className="text-gray-500">You will see the question screen as soon as the teacher starts a question.</p>
 
         <PopupButton />
       </div>
@@ -123,14 +123,12 @@ export default function StudentRoom() {
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-center bg-white py-12 px-4">
-      <div className="w-full max-w-2xl mx-auto">
+    <div className="min-h-screen flex items-start relative justify-center bg-white py-12 px-4">
+      <div className="w-full max-w-2xl mx-auto absolute top-1/4 right-1/4">
         <div className="flex items-center gap-4 mb-6">
           <h3 className="text-2xl font-semibold">{questionHeader}</h3>
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <svg width="18" height="18" viewBox="0 0 24 24" className="inline-block">
-              <path d="M12 7v6l4 2" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
+            <TimerSVG />
             <span className="font-medium text-red-600">{formatTime(remainingSeconds)}</span>
           </div>
         </div>
@@ -151,20 +149,20 @@ export default function StudentRoom() {
                       if (remainingSeconds <= 0 || isSubmitted) return;
                       setSelectedOption(opt.id);
                     }}
-                    className={`flex items-center gap-4 cursor-pointer rounded-md border p-4 ${
+                    className={`flex items-center gap-4 cursor-pointer rounded-md border-2 p-4 ${
                       isSelected ? "border-purple-600 bg-white" : "bg-[#F5F5F6] border-[#EFEFEF]"
                     }`}
                   >
                     <div
-                      className="flex-none w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
-                      style={{ background: `${ isSelected ? 'linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)' : 'bg-[#F5F5F6] border-[#EFEFEF]'}` }}
+                      className="flex-none w-8 h-8 rounded-full flex items-center justify-center text-white"
+                      style={{ background: `${ isSelected ? 'linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)' : '#8D8D8D'}` }}
                     >
                       {idx + 1}
                     </div>
 
                     <div className="flex-1">
                       <div className="relative">
-                        <div className={`${isSelected ? 'text-gray-800' : 'bg-[#F5F5F6] border-[#EFEFEF]'} font-medium`}>{opt.text}</div>
+                        <div className={`${isSelected ? 'text-gray-800 font-semibold' : 'bg-[#F5F5F6] border-[#EFEFEF]'} `}>{opt.text}</div>
                       </div>
                     </div>
                   </div>
