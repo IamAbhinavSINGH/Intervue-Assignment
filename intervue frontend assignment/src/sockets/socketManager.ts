@@ -32,7 +32,7 @@ class SocketManager {
 
       this.socket.on('connect', () => {
         if (this.currentCode) {
-          const token = storage.getTeacherToken();
+          // const token = storage.getTeacherToken();
           // if (token) {
           //   this.socket?.emit('teacher:join', { code: this.currentCode, token });
           // } else {
