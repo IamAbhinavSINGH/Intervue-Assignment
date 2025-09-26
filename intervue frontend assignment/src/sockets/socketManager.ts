@@ -33,12 +33,12 @@ class SocketManager {
       this.socket.on('connect', () => {
         if (this.currentCode) {
           const token = storage.getTeacherToken();
-          if (token) {
-            this.socket?.emit('teacher:join', { code: this.currentCode, token });
-          } else {
-            const clientId = storage.getClientId();
-            this.socket?.emit('student:join', { code: this.currentCode, clientId });
-          }
+          // if (token) {
+          //   this.socket?.emit('teacher:join', { code: this.currentCode, token });
+          // } else {
+          //   const clientId = storage.getClientId();
+          //   this.socket?.emit('student:join', { code: this.currentCode, clientId });
+          // }
         }
       });
 
