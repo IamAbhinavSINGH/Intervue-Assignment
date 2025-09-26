@@ -4,6 +4,7 @@ import { roomActions } from "../store/roomSlice";
 import socketManager from "../sockets/socketManager";
 import { useNavigate } from "react-router-dom";
 import PopupButton from "./PopupButton";
+import {Eye} from 'lucide-react'
 
 export default function TeacherLiveQuestion() {
   const activeQuestion = useAppSelector((s) => s.room.activeQuestion);
@@ -32,16 +33,13 @@ export default function TeacherLiveQuestion() {
       <div className="max-w-6xl mx-auto ">
         <div className="absolute right-5 top-5">
           <button
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full text-white font-medium"
-            style={{ background: "linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)" }}
+            className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-white cursor-pointer"
+            style={{ background: "#8F64E1" }}
             onClick={() => {
               if(code) navigate(`/teacher/room/${code}/history`)
             }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="opacity-90" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7z" fill="white"/>
-              <path d="M12 9a3 3 0 100 6 3 3 0 000-6z" fill="white" />
-            </svg>
+          > 
+            <Eye className="w-6 h-6 text-white" />
             <span>View Poll history</span>
           </button>
         </div>

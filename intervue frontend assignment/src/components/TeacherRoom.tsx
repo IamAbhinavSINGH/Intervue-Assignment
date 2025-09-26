@@ -9,9 +9,6 @@ import TeacherLiveQuestion from "./TeacherLiveQuestion";
 
 export default function TeacherRoom(){
   const activeQuestion = useAppSelector(s => s.room.activeQuestion);
-
-  console.log('activeQuestion : ' , activeQuestion);
-
   return activeQuestion ? <TeacherLiveQuestion /> : <TeacherQuestionForm />
 }
 
@@ -109,7 +106,7 @@ export function TeacherQuestionForm() {
   }
 
   return (
-    <div className="min-h-screen p-10">
+    <div className="min-h-screen p-10 relative">
       <div className="max-w-5xl lg:ml-20 bg-white p-8 rounded-md">
         <div className="mb-6">
            <div 
@@ -170,7 +167,7 @@ export function TeacherQuestionForm() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-6 flex justify-end">
+      <div className="max-w-6xl mx-auto mt-2 flex justify-end">
         <button
           onClick={handleAskQuestion}
           className="px-8 py-3 rounded-full btn-primary text-white font-medium"
@@ -178,6 +175,10 @@ export function TeacherQuestionForm() {
         >
           {loading ? "Asking..." : "Ask Question"}
         </button>
+      </div>
+
+      <div className="absolute top-10 right-10 w-fit px-6 py-2 bg-[#EFEFEF] rounded-md">
+            {`code - ${code}`}
       </div>
     </div>
   );
