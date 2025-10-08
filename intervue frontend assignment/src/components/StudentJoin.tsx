@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { joinRoomAsStudent } from '../store/roomSlice';
+import StarSVG from '../assets/Star';
 
 export default function StudentJoin() {
   const [name, setName] = useState('');
@@ -30,7 +31,11 @@ export default function StudentJoin() {
     <div className="min-h-screen flex items-center justify-center px-10">
       <div className="w-full max-w-2xl bg-white p-10 rounded-xl2 shadow-card">
         <div className="mb-6">
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-white text-sm font-medium" style={{ background: 'linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)' }}>
+          <div 
+              className="px-4 py-2 w-fit rounded-full text-white text-sm font-medium flex items-center gap-2"
+              style={{ background: 'linear-gradient(90deg,#7765DA 0%,#4F0DCE 100%)' }}
+          >
+            <StarSVG />
             Intervue Poll
           </div>
           <h2 className="text-3xl font-bold mt-4">Let's Get Started</h2>

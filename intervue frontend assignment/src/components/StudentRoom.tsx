@@ -87,7 +87,7 @@ export default function StudentRoom() {
           >
             <StarSVG />
             Intervue Poll
-          </div>
+        </div>
 
         <div className="mb-8 mt-6">
           <svg width="72" height="72" viewBox="0 0 24 24" fill="none" className="animate-spin">

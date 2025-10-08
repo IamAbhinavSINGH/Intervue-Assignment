@@ -154,7 +154,7 @@ export function TeacherQuestionForm() {
                     correctIndex={correctIndex}
                     updateOptionText={updateOptionText}
                     removeOption={removeOption}
-                    setCorrectIndex={(i : number) => setCorrectIndex(i)}
+                    setOptionCorrect={(i : number) => setCorrectIndex(i)}
                     optionsLength={options.length}
                 />
               ))}
@@ -199,22 +199,24 @@ function OptionRow({ idx, option, correctIndex, updateOptionText, removeOption ,
         />
 
         <div className="flex flex-row gap-2 items-start ml-6">
-          <label className="inline-flex items-center gap-2 cursor-pointer">
+          <label 
+            className="inline-flex items-center gap-2 cursor-pointer">
             <input
+              onChange={() => setOptionCorrect(idx , true)}
               type="radio"
               name={`correct-${idx}`}
               checked={correctIndex === idx}
-              onChange={() => setOptionCorrect(idx, true)}
               className="form-radio"
             />
             <span className="ml-1 text-sm">Yes</span>
           </label>
-          <label className="inline-flex items-center gap-2 cursor-pointer">
+          <label 
+            className="inline-flex items-center gap-2 cursor-pointer">
             <input
+              onChange={() => setOptionCorrect(idx , true)}
               type="radio"
               name={`notcorrect-${idx}`}
               checked={correctIndex !== idx}
-              onChange={() => setOptionCorrect(idx, false)}
               className="form-radio"
             />
             <span className="ml-1 text-sm">No</span>
